@@ -1,0 +1,36 @@
+import matplotlib.pyplot as plt
+import numpy as np
+from datetime import datetime
+
+# Data from the previous interaction (corrected and ready for use)
+days = ['Sat. Apr 26th', 'Sun. Apr 27th', 'Mon. Apr 28th', 'Tue. Apr 29th', 'Wed. Apr 30th',
+        'Thu. May 1st', 'Fri. May 2nd', 'Sat. May 3rd', 'Sun. May 4th', 'Mon. May 5th',
+        'Tue. May 6th', 'Wed. May 7th', 'Thu. May 8th', 'Fri. May 9th', 'Sat. May 10th',
+        'Sun. May 11th', 'Mon. May 12th', 'Tue. May 13th', 'Wed. May 14th', 'Thu. May 15th',
+        'Fri. May 16th']
+
+tickets_closed = [0, 1, 37, 8, 7, 0, 17, 0, 0, 45, 0, 11, 0, 27, 0, 0, 16, 1, 0, 48, 9]
+
+# Create the line graph
+plt.figure(figsize=(15, 7))
+plt.plot(days, tickets_closed, color='teal', marker='o', linestyle='-')
+
+# Add labels and title
+plt.xlabel('Day', fontweight='bold')
+plt.ylabel('Tickets Closed', fontweight='bold')
+plt.title('Tickets Closed by Day', fontweight='bold')
+
+# Rotate x-axis labels for better readability
+plt.xticks(rotation=45, ha='right')
+
+# Add a grid for better readability
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+# Adjust layout to prevent labels from overlapping
+plt.tight_layout()
+
+# Save the plot to a file
+plot_file = 'tickets_closed_line_graph.png'
+plt.savefig(plot_file)
+
+print(f"Line graph saved to {plot_file}")
