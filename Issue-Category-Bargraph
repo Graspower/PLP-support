@@ -1,0 +1,42 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Data from the user's input
+issue_categories = ['Login Issues', 'Live Class Issues', 'Content Issues', 'Progress Issues', 'Certificate Issues', 'Payment Issues', 'Advanced Course']
+tickets_created = [9, 17, 67, 98, 16, '-', 11]
+tickets_closed = [9, 20, 83, 98, 6, '-', 11]
+
+# Convert '-' to 0 and ensure data is numeric
+tickets_created = [int(x) if x != '-' else 0 for x in tickets_created]
+tickets_closed = [int(x) if x != '-' else 0 for x in tickets_closed]
+
+# Set the width of the bars
+bar_width = 0.35
+
+# Set the positions of the bars on the x-axis
+r1 = np.arange(len(issue_categories))
+r2 = [x + bar_width for x in r1]
+
+# Create the bar graph
+fig, ax = plt.subplots(figsize=(12, 7))
+
+ax.bar(r1, tickets_created, color='teal', width=bar_width, label='Tickets Created')
+ax.bar(r2, tickets_closed, color='green', width=bar_width, label='Tickets Closed')
+
+# Add labels and title
+ax.set_xlabel('Issue Category', fontweight='bold')
+ax.set_ylabel('Number of Tickets', fontweight='bold')
+ax.set_title('Tickets Created and Tickets Closed by Issue Category', fontweight='bold')
+ax.set_xticks([r + bar_width / 2 for r in range(len(issue_categories))])
+ax.set_xticklabels(issue_categories, rotation=45, ha='right')
+ax.legend()
+ax.grid(axis='y', linestyle='--', alpha=0.7)
+
+# Adjust layout to prevent labels from overlapping
+plt.tight_layout()
+
+# Save the plot to a file
+plot_file = 'tickets_bar_graph.png'
+plt.savefig(plot_file)
+
+print(f"Bar graph saved to {plot_file}")
