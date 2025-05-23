@@ -1,36 +1,44 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from datetime import datetime
 
-# Data from the previous interaction (corrected and ready for use)
-days = ['Sat. Apr 26th', 'Sun. Apr 27th', 'Mon. Apr 28th', 'Tue. Apr 29th', 'Wed. Apr 30th',
-        'Thu. May 1st', 'Fri. May 2nd', 'Sat. May 3rd', 'Sun. May 4th', 'Mon. May 5th',
-        'Tue. May 6th', 'Wed. May 7th', 'Thu. May 8th', 'Fri. May 9th', 'Sat. May 10th',
-        'Sun. May 11th', 'Mon. May 12th', 'Tue. May 13th', 'Wed. May 14th', 'Thu. May 15th',
-        'Fri. May 16th']
+# Data for tickets created and closed
+days = [
+    'Sat. May 17th',
+    'Sun. May 18th',
+    'Mon. May 19th',
+    'Tue. May 20th',
+    'Wed. May 21st',
+    'Thu. May 22nd',
+    'Fri. May 23rd'
+]
 
-tickets_closed = [0, 1, 37, 8, 7, 0, 17, 0, 0, 45, 0, 11, 0, 27, 0, 0, 16, 1, 0, 48, 9]
+tickets_created = [3, 8, 7, 5, 8, 31, 2]
+tickets_closed = [0, 0, 15, 1, 5, 0, 0]
 
 # Create the line graph
-plt.figure(figsize=(15, 7))
-plt.plot(days, tickets_closed, color='teal', marker='o', linestyle='-')
+plt.figure(figsize=(10, 6))
+plt.plot(days, tickets_created, color='darkred', marker='o', linestyle='-', label='Tickets Created')
+plt.plot(days, tickets_closed, color='teal', marker='o', linestyle='-', label='Tickets Closed')
 
 # Add labels and title
 plt.xlabel('Day', fontweight='bold')
-plt.ylabel('Tickets Closed', fontweight='bold')
-plt.title('Tickets Closed by Day', fontweight='bold')
+plt.ylabel('Number of Tickets', fontweight='bold')
+plt.title('Tickets Created and Closed by Day', fontweight='bold')
 
 # Rotate x-axis labels for better readability
 plt.xticks(rotation=45, ha='right')
 
-# Add a grid for better readability
+# Add a grid
 plt.grid(axis='y', linestyle='--', alpha=0.7)
 
-# Adjust layout to prevent labels from overlapping
+# Add a legend
+plt.legend()
+
+# Adjust layout
 plt.tight_layout()
 
 # Save the plot to a file
-plot_file = 'tickets_closed_line_graph.png'
+plot_file = 'tickets_created_closed_line_graph.png'
 plt.savefig(plot_file)
 
 print(f"Line graph saved to {plot_file}")
