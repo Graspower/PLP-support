@@ -11,7 +11,7 @@ file_list = [
 ]
 
 start_date = pd.to_datetime("2025-07-05")
-end_date = pd.to_datetime("2025-07-11")
+end_date = pd.to_datetime("2025-07-12")
 
 # Prepare date range
 all_dates = pd.date_range(start=start_date, end=end_date)
