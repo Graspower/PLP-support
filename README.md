@@ -1,6 +1,9 @@
 <h1 align="center">📊 PLP-Support Data Processing 🛠️</h1>
 
-This repository houses 🐍 Python scripts designed to efficiently process ticket data extracted from multiple 📂 CSV files. These scripts provide a clear overview of ticket activity by summarizing the number of tickets 📥 **received** and 📤 **closed** within a specific timeframe, offering valuable insights through aggregated results.
+This repository houses 🐍 Python scripts designed to efficiently process ticket data extracted from multiple 📂 CSV files of closed and created tickets. These scripts provide a clear overview of ticket activity by summarizing the number of tickets 📥 **received** and 📤 **closed** within a specific timeframe, offering valuable insights through aggregated results.
+
+**Additionaly** 
+There are two files that provide a visual analysis of the aggregated data.
 
 ---
 
@@ -17,7 +20,7 @@ Here's a breakdown of the scripts included:
     * 💯 Grand totals encompassing all processed files.
 * **✨ Key Features:**
     * 🧹 Cleans and standardizes date formats.
-    * 🗓️ Aggregates ticket data on a daily basis for the period **2025-04-04** to **2025-04-12**.
+    * 🗓️ Aggregates ticket data on a daily basis for the weekly period adjusted in the date inputs. e.g. **2025-06-04** to **2025-04-12**.
 
 **2. 🗓️ `date.py`**
 
@@ -27,8 +30,11 @@ Here's a breakdown of the scripts included:
     * <tfoot> A concluding row summarizing the overall total of tickets received and closed.
 * **✨ Key Features:**
     * 🧹 Cleans and standardizes date formats.
-    * 🗓️ Aggregates ticket data for the period **2025-04-04** to **2025-04-12**.
+    * 🗓️ Aggregates ticket data for the period adjusted in the date inpute e.g. **2025-04-04** to **2025-04-12**.
 
+**3. bargraph:**
+   * provides a visualization of the tickets closed by category issue.
+   * 
 ---
 
 ## ⚙️ Prerequisites
