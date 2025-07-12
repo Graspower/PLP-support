@@ -172,8 +172,9 @@ if all(uploaded_files.values()):
                 df["Closed On"] = df["Closed On"].str.replace(" +0000 UTC", "", regex=False)
                 df["Created On"] = pd.to_datetime(df["Created On"], errors='coerce')
                 df["Closed On"] = pd.to_datetime(df["Closed On"], errors='coerce')
-                mask_created = (df["Created On"] >= pd.to_datetime(start_date)) & (df["Created On"] <= pd.to_datetime(end_date))
-                mask_closed = (df["Closed On"] >= pd.to_datetime(start_date)) & (df["Closed On"] <= pd.to_datetime(end_date))
+                # Fix: Include the entire end date by using end_date + 1 day for the upper bound
+                mask_created = (df["Created On"].dt.date >= start_date) & (df["Created On"].dt.date <= end_date)
+                mask_closed = (df["Closed On"].dt.date >= start_date) & (df["Closed On"].dt.date <= end_date)
                 tickets_received = df.loc[mask_created].groupby(df["Created On"].dt.date).size()
                 tickets_closed = df.loc[mask_closed].groupby(df["Closed On"].dt.date).size()
                 total_received_by_date = total_received_by_date.add(tickets_received, fill_value=0).astype(int)
@@ -200,8 +201,9 @@ if all(uploaded_files.values()):
                 df["Closed On"] = df["Closed On"].str.replace(" +0000 UTC", "", regex=False)
                 df["Created On"] = pd.to_datetime(df["Created On"], errors='coerce')
                 df["Closed On"] = pd.to_datetime(df["Closed On"], errors='coerce')
-                mask_created = (df["Created On"] >= pd.to_datetime(start_date)) & (df["Created On"] <= pd.to_datetime(end_date))
-                mask_closed = (df["Closed On"] >= pd.to_datetime(start_date)) & (df["Closed On"] <= pd.to_datetime(end_date))
+                # Fix: Include the entire end date by using end_date + 1 day for the upper bound
+                mask_created = (df["Created On"].dt.date >= start_date) & (df["Created On"].dt.date <= end_date)
+                mask_closed = (df["Closed On"].dt.date >= start_date) & (df["Closed On"].dt.date <= end_date)
                 tickets_received = df.loc[mask_created].groupby(df["Created On"].dt.date).size()
                 tickets_closed = df.loc[mask_closed].groupby(df["Closed On"].dt.date).size()
                 daily_tickets = pd.DataFrame({
@@ -257,8 +259,9 @@ if all(uploaded_files.values()):
                         df["Closed On"] = df["Closed On"].astype(str).str.replace(" +0000 UTC", "", regex=False)
                         df["Created On"] = pd.to_datetime(df["Created On"], errors='coerce')
                         df["Closed On"] = pd.to_datetime(df["Closed On"], errors='coerce')
-                        mask_created = (df["Created On"] >= pd.to_datetime(start_date)) & (df["Created On"] <= pd.to_datetime(end_date))
-                        mask_closed = (df["Closed On"] >= pd.to_datetime(start_date)) & (df["Closed On"] <= pd.to_datetime(end_date))
+                        # Fix: Include the entire end date by using end_date + 1 day for the upper bound
+                        mask_created = (df["Created On"].dt.date >= start_date) & (df["Created On"].dt.date <= end_date)
+                        mask_closed = (df["Closed On"].dt.date >= start_date) & (df["Closed On"].dt.date <= end_date)
                         total_created = mask_created.sum()
                         total_closed = mask_closed.sum()
                         refined_rows.append([cat, total_created, total_closed])
@@ -315,8 +318,10 @@ line_data_file = upload_col.file_uploader("Upload downloaded daily data", type="
 daily_data_df = None
 if line_data_file:
     daily_data_df = pd.read_csv(line_data_file)
+    # Remove the "Total" row if it exists - do this immediately after reading
+    daily_data_df = daily_data_df[daily_data_df["Day"] != "Total"]
 
-if daily_data_df is not None:
+if daily_data_df is not None and len(daily_data_df) > 0:
     if set(["Day", "Ticket Created", "Ticket Closed"]).issubset(daily_data_df.columns):
         days = daily_data_df["Day"].tolist()
         created = pd.Series(pd.to_numeric(daily_data_df["Ticket Created"], errors='coerce')).fillna(0).astype(int).tolist()
