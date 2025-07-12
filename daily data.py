@@ -15,7 +15,7 @@ end_date = pd.to_datetime("2025-07-12")
 
 # Prepare date range
 all_dates = pd.date_range(start=start_date, end=end_date)
-date_list = all_dates.date
+date_list = [d.date() for d in all_dates]
 
 # Initialize total counts
 total_received_by_date = pd.Series(0, index=date_list)
@@ -41,15 +41,15 @@ for file in file_list:
 
 # Create final DataFrame
 summary_df = pd.DataFrame({
-    "Date": date_list,
-    "Tickets Received": total_received_by_date.values,
-    "Tickets Closed": total_closed_by_date.values
+    "Day": date_list,
+    "Ticket Created": total_received_by_date.values,
+    "Ticket Closed": total_closed_by_date.values
 })
 
 # Add totals row
-summary_df.loc[len(summary_df)] = ["Total", summary_df["Tickets Received"].sum(), summary_df["Tickets Closed"].sum()]
+summary_df.loc[len(summary_df)] = ["Total", summary_df["Ticket Created"].sum(), summary_df["Ticket Closed"].sum()]
 
 # Save to CSV
-summary_df.to_csv("total_tickets_by_date.csv", index=False)
+summary_df.to_csv("daily data.csv", index=False)
 
-print("✅ Total tickets by date saved to 'total_tickets_by_date.csv'")
+print("\u2705 Daily data saved to 'daily data.csv'")
