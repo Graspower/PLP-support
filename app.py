@@ -11,9 +11,21 @@ from datetime import datetime
 # Initialize session state for loading
 if 'loading_complete' not in st.session_state:
     st.session_state.loading_complete = False
+if 'first_load' not in st.session_state:
+    st.session_state.first_load = True
 
-# Loading page
-if not st.session_state.loading_complete:
+# Check if this is a first load or a refresh
+# If first_load is True and loading_complete is False, show loading
+# Otherwise, skip loading (refresh or subsequent load)
+if not (st.session_state.first_load and not st.session_state.loading_complete):
+    # Skip loading page - this is a refresh or subsequent load
+    st.session_state.loading_complete = True
+    st.session_state.first_load = False
+
+
+
+# Loading page - only show on first load
+if st.session_state.first_load and not st.session_state.loading_complete:
     # Set page config for loading
     st.set_page_config(
         page_title="PLP-Support Loading...",
@@ -234,7 +246,7 @@ if st.session_state.loading_complete:
     st.markdown(
         """
         <div style='display: flex; flex-direction: column; align-items: center; margin-bottom: 1em;'>
-            <h1 style='color: #008080; margin-top: 0.5em; font-size: 2.5rem;'>PLP Ticket Data Processing</h1>
+            <h1 style='color: #008080; margin-top: 0.5em; font-size: 2.5rem;'>PLP Support Data Processing System</h1>
         </div>
         """,
         unsafe_allow_html=True
