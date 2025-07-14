@@ -430,7 +430,11 @@ if st.session_state.loading_complete:
                 summary_df.loc[len(summary_df)] = ["Total", summary_df["Ticket Created"].sum(), summary_df["Ticket Closed"].sum()]
                 csv_bytes = summary_df.to_csv(index=False).encode()
                 st.success("Aggregated by day!")
-                st.download_button("Download daily data.csv", csv_bytes, file_name="daily data.csv", mime="text/csv")
+                col_dl, col_preview = st.columns([1,1])
+                with col_dl:
+                    st.download_button("Download daily data.csv", csv_bytes, file_name="daily data.csv", mime="text/csv")
+                with col_preview:
+                    st.dataframe(summary_df)
 
         # --- category data.py logic ---
         with col_right:
