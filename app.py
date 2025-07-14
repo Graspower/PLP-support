@@ -33,7 +33,7 @@ if st.session_state.first_load and not st.session_state.loading_complete:
         page_icon="PLP.png"
     )
     
-    # Custom CSS for loading page - full screen with better styling and transitions
+    # Simple CSS for clean white loading page
     st.markdown(
         """
         <style>
@@ -43,96 +43,21 @@ if st.session_state.first_load and not st.session_state.loading_complete:
             padding-left: 0;
             padding-right: 0;
             max-width: 100%;
-            background-color: #f9f9f9;
+            background-color: white;
         }
         .stApp {
-            background-color: #f9f9f9;
-            transition: opacity 0.8s ease-in-out;
-        }
-        /* Make the top component colorless and hide yellowish content */
-        .stApp > div:first-child {
-            background-color: #f9f9f9 !important;
-        }
-        .stApp header {
-            background-color: #f9f9f9 !important;
-        }
-        .stApp .stDeployButton {
-            background-color: #f9f9f9 !important;
-        }
-        /* Hide any yellowish content above the image */
-        .stApp > div:first-child,
-        .stApp > div:first-child > div,
-        .stApp > div:first-child > div > div {
-            background-color: #f9f9f9 !important;
-            color: #f9f9f9 !important;
+            background-color: white;
         }
         /* Hide Streamlit's default header/menu */
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
         header {visibility: hidden;}
         .stDeployButton {display: none;}
-        /* Hide yellow background components with white text */
+        /* Hide Streamlit's toolbar and status elements */
         [data-testid="stToolbar"] {display: none !important;}
+        [data-testid="stStatusWidget"] {display: none !important;}
         .stToolbar {display: none !important;}
-        .stApp > div[data-testid="stToolbar"] {display: none !important;}
-        /* Target any element with yellow background */
-        div[style*="background-color: yellow"],
-        div[style*="background-color: #ffff00"],
-        div[style*="background-color: #ffeb3b"],
-        div[style*="background-color: #ffc107"],
-        div[style*="background-color: #ff9800"] {
-            display: none !important;
-        }
-        /* Hide any element with white text on yellow background */
-        div[style*="color: white"][style*="background-color"],
-        div[style*="color: #ffffff"][style*="background-color"] {
-            display: none !important;
-        }
-        /* Hide Streamlit's status bar or any top bar */
         .stStatusWidget {display: none !important;}
-        .stApp > div:first-child > div:first-child {display: none !important;}
-        /* More comprehensive hiding of yellow components */
-        .stApp > div:first-child,
-        .stApp > div:first-child > div,
-        .stApp > div:first-child > div > div,
-        .stApp > div:first-child > div > div > div {
-            background-color: #f9f9f9 !important;
-            color: #f9f9f9 !important;
-        }
-        /* Hide any element with yellow background or white text */
-        *[style*="background-color: yellow"],
-        *[style*="background-color: #ffff00"],
-        *[style*="background-color: #ffeb3b"],
-        *[style*="background-color: #ffc107"],
-        *[style*="background-color: #ff9800"],
-        *[style*="background-color: #f4f4f4"],
-        *[style*="background-color: #f5f5f5"] {
-            display: none !important;
-        }
-        /* Hide any element with white text */
-        *[style*="color: white"],
-        *[style*="color: #ffffff"] {
-            color: #f9f9f9 !important;
-        }
-        /* Hide Streamlit's default elements that might be yellow */
-        .stApp > div:first-child > div:first-child,
-        .stApp > div:first-child > div:first-child > div,
-        .stApp > div:first-child > div:first-child > div > div {
-            display: none !important;
-        }
-        /* Hide any toolbar, status bar, or notification area */
-        [data-testid="stToolbar"],
-        [data-testid="stStatusWidget"],
-        [data-testid="stNotification"],
-        .stToolbar,
-        .stStatusWidget,
-        .stNotification,
-        .stApp > div:first-child > div:first-child,
-        .stApp > div:first-child > div:first-child > div {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-        }
         .loading-text {
             color: #008080;
             font-size: 2rem;
